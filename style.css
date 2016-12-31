@@ -105,6 +105,9 @@ iframe {
 	background: url(images/note2.png) center center no-repeat;
 	background-size: contain;
 }
+.white {
+	color: white;
+}
 
 @keyframes ring{
 	0% {

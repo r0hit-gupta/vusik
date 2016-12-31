@@ -1,5 +1,7 @@
 const gapikey = 'AIzaSyCKMpw2nmPnon_gkh4EIXnbiAmrZNw-v4M';
 var listening = false;
+
+const initTitle = "Try 'Play tum hi ho'";
 // new instance of speech recognition
 var recognition = new webkitSpeechRecognition();
 
@@ -16,6 +18,9 @@ function startListening(){
         $('.text').text(saidWord);
         if(event.results[0].isFinal){
             $('.ring1, .ring2').removeClass('mic-active');
+            $('.text').addClass('white');
+        listening = 0;
+
              playMusic(saidWord); 
             console.log(saidWord);
             var msg = new SpeechSynthesisUtterance("playing, " + saidWord);
@@ -49,15 +54,19 @@ function playMusic(song){
 
 $('.mic').on('click', function(){
     if(listening){
-        recognition.abort();
-          $('.ring1, .ring2').removeClass('mic-active');
         listening = 0;
+        recognition.abort();
+          $('.ring1, .ring2').removeClass('mic-active');        
     }
     else {
         listening = 1;
+        $('.text').removeClass('white').text(initTitle);
+
           $('iframe').attr('src', '');
   $('.ring1, .ring2').toggleClass('mic-active');
-    var msg = new SpeechSynthesisUtterance("ok");
+        $('.notefall').fadeOut();
+
+    var msg = new SpeechSynthesisUtterance("yo");
     window.speechSynthesis.speak(msg);
     startListening();
     }
@@ -85,7 +94,7 @@ function noteFall(){
 $(document).on('change', 'iframe', function(){
     if(this.attr('src')) noteFall();
     else {
-        $('notefall').fadeOut();
+        $('.notefall').fadeOut();
     }
 });
 
